@@ -2,7 +2,7 @@ package criaturas.tipotierra
 
 import criaturas.Creatura
 
-class Rockzu(nombre: String = "Mozu",
+class Rockzu(nombre: String = "Rockzu",
              potenciaAtaque: Float = 100f,
              HP: Float = 220f,
              experiencia: Double = 0.0,

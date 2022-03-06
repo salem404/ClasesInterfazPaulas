@@ -2,7 +2,7 @@ package criaturas.tipoagua
 
 import criaturas.Creatura
 
-class Rainzu(nombre: String = "Razu",
+class Rainzu(nombre: String = "Rainzu",
              potenciaAtaque: Float = 100f,
              HP: Float = 220f,
              experiencia: Double = 0.0,

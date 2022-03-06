@@ -2,7 +2,7 @@ package criaturas.tipofuego
 
 import criaturas.Creatura
 
-class Firezu(nombre: String = "Rizu",
+class Firezu(nombre: String = "Firezu",
               potenciaAtaque: Float = 100f,
               HP: Float = 220f,
               experiencia: Double = 0.0,

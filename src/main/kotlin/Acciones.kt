@@ -1,4 +1,3 @@
-import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
@@ -9,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.res.useResource
 import androidx.compose.ui.unit.dp
@@ -17,6 +15,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun acciones(juego:GameManager){
+
+
     //Primer bicho
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -26,6 +26,7 @@ fun acciones(juego:GameManager){
 
         Box(
             modifier = Modifier.size(60.dp)
+
         )
         when (juego.bicho1.tipo){
             "Agua"->{
@@ -41,7 +42,7 @@ fun acciones(juego:GameManager){
                 Image(
                     bitmap = useResource("tierra.png") {
                         loadImageBitmap(it)
-                    }, "Rainzu",
+                    }, "Rockzu",
                     modifier = Modifier
                         .size(70.dp)
                 )
@@ -50,19 +51,23 @@ fun acciones(juego:GameManager){
                 Image(
                     bitmap = useResource("fuego.png") {
                         loadImageBitmap(it)
-                    }, "Rainzu",
+                    }, "Firezu",
                     modifier = Modifier
                         .size(70.dp)
                 )
             }
 
         }
-        Text(juego.bicho1.nombre,
-            fontSize = 20.sp
-        )
+
+        Row {
+            Text(juego.bicho1.nombre,
+                fontSize = 20.sp
+            )
+        }
+
 
         Button(
-            onClick = { juego.turno(juego.bicho1,juego.bicho2,"1") },
+            onClick = {juego.turno(juego.bicho1,juego.bicho2,"1")},
             shape = CutCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(230, 176, 170),
@@ -106,7 +111,7 @@ fun acciones(juego:GameManager){
             Text("Curar")
         }
         Button(
-            onClick = { juego.turno(juego.bicho2,juego.bicho1,"5") },
+            onClick = { juego.turno(juego.bicho1,juego.bicho2,"5") },
             shape = CutCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color(182,238,166),

@@ -18,6 +18,7 @@ import criaturas.Creatura
 import criaturas.tipoagua.Rainzu
 import criaturas.tipofuego.Firezu
 import criaturas.tipotierra.Rockzu
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -38,13 +39,6 @@ fun main() = application {
         juego.bicho2 = bichos.random()
     }
 
-    var ganador by remember { mutableStateOf(juego.winner(juego.bicho1,juego.bicho2)) }
-    var corutina = rememberCoroutineScope()
-
-    fun refrescarInterfaz() {
-        ganador = juego.winner(juego.bicho1,juego.bicho2)
-    }
-
     Window(onCloseRequest = ::exitApplication,
             icon = icon,
             title = "Bichitos peleones") {
@@ -52,34 +46,45 @@ fun main() = application {
             .background(Color(249, 248, 248)))
         encabezado()
         acciones(juego)
-        refrescarInterfaz()
-        if (ganador){
-            Text("Lol")
-            exitApplication()
-        }
-        else{corutina.launch(){
-            refrescarInterfaz()
-        }
-        }
         pantalla(juego)
-
     }
 }
 
+//Pantalla abajo central que muestra las acciones y la vida
 
 @Composable
 fun pantalla(game:GameManager){
-    var texto = game.mensaje
-    when(game.mensaje){
-        ""-> texto= "${game.bicho1.nombre} VS ${game.bicho2.nombre}"
-        else->{
-            texto= game.mensaje
-        }
-    }
+    var textoES by remember { mutableStateOf("") }
+    var ganador by remember { mutableStateOf(game.winner(game.bicho1,game.bicho2)) }
+    var vida1 by remember { mutableStateOf(game.bicho1.HP) }
+    var vida2 by remember { mutableStateOf(game.bicho2.HP) }
     fun refrescarInterfaz() {
-        texto = game.mensaje
+        textoES = game.mensaje
+        ganador=game.winner(game.bicho1,game.bicho2)
+        vida1=game.bicho1.HP
+        vida2=game.bicho2.HP
+    }
+    var corutina = rememberCoroutineScope()
+
+    corutina.launch {
+        while (true){
+            delay(10)
+            refrescarInterfaz()
+        }
+         }
+    Column (modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom) {
+        Text(textoES)
+        if (!ganador){
+            Row {
+                Text(vida1.toString())
+                Text("   ")
+                Text(vida2.toString())
+            }
+        }
+
     }
 
-    Text(texto)
 
 }
